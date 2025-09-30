@@ -4,12 +4,12 @@ echo "🚀 Iniciando Flask en modo PRODUCCIÓN..."
 # Detener contenedor si existe
 docker stop flask-prod 2>/dev/null || true
 docker rm flask-prod 2>/dev/null || true
-
+HOST_PATH=$(pwd -W)/env/.env.prod
 # Ejecutar en modo production
 docker run -d \
   --name flask-prod \
   -p 8081:5000 \
-  -v "$(pwd)/env/.env.prod:/app/.env:ro" \
+  -v "${HOST_PATH}:/app/.env:ro" \
   --restart unless-stopped \
   flask-docker-app:1.1
 
